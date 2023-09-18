@@ -5,7 +5,7 @@ int divisors_count(int num);
 
 bool is_divisor(int check, int num);
 
-void divisors(int count, int num);
+void divisors(int num, int *array);
 
 void print_divisors(int divisor_list[], int count);
 
@@ -22,7 +22,9 @@ int main(int argc, char* argv[]) {
         int num;
         sscanf(argv[1], "%d", &num);
         int count = divisors_count(num);
-        divisors(count, num);
+        int divisor_list[count];
+        divisors(num, divisor_list);
+        print_divisors(divisor_list, count);
     }
 
     return 0;
@@ -49,17 +51,16 @@ bool is_divisor(int check, int num){
     }
 }
 
-void divisors(int count, int num){
+void divisors(int num, int *array){
     // Method that gets the list of divisors
-    int divisor_list[count];
     int list_position = 0;
     for (int i = 1; i <= num ; i++){
         if (is_divisor(i, num)){
-            divisor_list[list_position] = i;
+            array[list_position] = i;
             list_position += 1;
         }
     }
-    print_divisors(divisor_list, count);
+
 }
 
 void print_divisors(int divisor_list[], int count){
