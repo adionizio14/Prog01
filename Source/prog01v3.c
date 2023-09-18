@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
         sscanf(argv[1], "%d", &num);
         int count = divisors_count(num);
         int divisor_list[count];
-        divisors(divisor_list, num);
+        divisors(num, divisor_list);
         print_divisors(divisor_list, count);
     }
     else if (argc == 3) {
