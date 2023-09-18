@@ -5,11 +5,9 @@ int divisors_count(int num);
 
 bool is_divisor(int check, int num);
 
-void divisor_list(int count_num1, int count_num2, int num1, int num2);\
+void divisor_list(int *divisors_num1, int *divisors_num2, int num1, int num2);
 
-void get_common(int divisors_num1[], int divisors_num2[], int count_num1, int count_num2, int num1, int num2);
-
-int get_gcd(int divisor_list[], int count, int num1, int num2);
+int get_common(int divisors_num1[], int divisors_num2[], int count_num1, int count_num2, int num1, int num2);
 
 bool argument_check(char exe_name[], int num_args);
 
@@ -25,7 +23,11 @@ int main(int argc, char* argv[]) {
         sscanf(argv[2], "%d", &num2);
         int count_num1 = divisors_count(num1);
         int count_num2 = divisors_count(num2);
-        divisor_list(count_num1, count_num2, num1, num2);
+        int divisors_num1[count_num1];
+        int divisors_num2[count_num2];
+        divisor_list(divisors_num1, divisors_num2, num1, num2);
+        int gcd = get_common(divisors_num1, divisors_num2, count_num1, count_num2, num1, num2);
+        printf("The gcd of %d and %d is %d\n", num1,num2, gcd);
     }
 
     return 0;
@@ -65,10 +67,8 @@ bool is_divisor(int check, int num){
     }
 }
 
-void divisor_list(int count_num1, int count_num2, int num1, int num2){
+void divisor_list(int *divisors_num1, int *divisors_num2, int num1, int num2){
     // Method that gets the list of divisors
-    int divisors_num1[count_num1];
-    int divisors_num2[count_num2];
     int list_position = 0;
 
     for (int i = 1; i <= num1 ; i++){
@@ -85,10 +85,9 @@ void divisor_list(int count_num1, int count_num2, int num1, int num2){
         }
     }
 
-    get_common(divisors_num1, divisors_num2, count_num1, count_num2, num1, num2);
 }
 
-void get_common(int divisors_num1[], int divisors_num2[], int count_num1, int count_num2, int num1, int num2){
+int get_common(int divisors_num1[], int divisors_num2[], int count_num1, int count_num2, int num1, int num2){
 
     if (count_num1 > count_num2) {
         int common_div[count_num2];
@@ -103,7 +102,7 @@ void get_common(int divisors_num1[], int divisors_num2[], int count_num1, int co
                 }
             }
         }
-        get_gcd(common_div, common_count, num1, num2);
+        return common_div[common_count - 1];
     }
     else {
         int common_div[count_num2];
@@ -118,11 +117,7 @@ void get_common(int divisors_num1[], int divisors_num2[], int count_num1, int co
                 }
             }
         }
-        get_gcd(common_div, common_count, num1, num2);
+        return common_div[common_count - 1];
     }
 
-}
-
-int get_gcd(int divisor_list[], int count, int num1, int num2){
-    printf("the gcd of %d and %d is %d\n",num1,num2, divisor_list[count - 1]);
 }
