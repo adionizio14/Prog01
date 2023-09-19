@@ -12,12 +12,13 @@ int get_common(int divisors_num1[], int divisors_num2[], int count_num1, int cou
 bool argument_check(char exe_name[], int num_args);
 
 int main(int argc, char* argv[]) {
-
+    //check that the number of args is correct, program ends if not
     if (argument_check(argv[0], argc))
     {
         return 0;
     }
     else {
+        //get both number inputs, count and divisors. Returns and prints gcd
         int num1, num2 ;
         sscanf(argv[1], "%d", &num1);
         sscanf(argv[2], "%d", &num2);
@@ -34,6 +35,7 @@ int main(int argc, char* argv[]) {
 }
 
 bool argument_check(char exe_name[], int num_args){
+    // method that checks correct number of arguments was given
     if (num_args < 3) {
         printf("program launched with too few arguments.\nProper usage: %s m n\n", exe_name);
         return true;
@@ -68,7 +70,7 @@ bool is_divisor(int check, int num){
 }
 
 void divisor_list(int *divisors_num1, int *divisors_num2, int num1, int num2){
-    // Method that gets the list of divisors
+    // Method that gets the list of divisors for both numbers
     int list_position = 0;
 
     for (int i = 1; i <= num1 ; i++){
@@ -87,8 +89,8 @@ void divisor_list(int *divisors_num1, int *divisors_num2, int num1, int num2){
 
 }
 
-int get_common(int divisors_num1[], int divisors_num2[], int count_num1, int count_num2, int num1, int num2){
-
+int get_common(int divisors_num1[], int divisors_num2[], int count_num1, int count_num2){
+    //method that fills an array with common divisors from both lists and returns the list
     if (count_num1 > count_num2) {
         int common_div[count_num2];
         int common_count = 0;
